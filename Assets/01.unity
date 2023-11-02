@@ -330,8 +330,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e89278ec1334c6047b52bacef3ba203f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QuadPrefab: {fileID: 7888580536813736170, guid: ee663e3abbaf97a448a948c3e40da849, type: 3}
-  LongNum: 30
+  QuadPrefab: {fileID: 2917096928192866472, guid: 896305b2b08c29c44a28e4b4646e4bd5, type: 3}
+  SumLength: 30
+  MoveSpeed: 5
 --- !u!4 &1911480567
 Transform:
   m_ObjectHideFlags: 0
