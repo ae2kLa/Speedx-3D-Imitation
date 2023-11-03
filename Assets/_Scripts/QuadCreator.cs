@@ -196,12 +196,12 @@ public class QuadCreator : MonoBehaviour
         if (targetState == TubeState.Ring)
         {
             m_tubeState = TubeState.PlaneToRing;
-            StartCoroutine(DoTubeTransform(targetState, RingPrefab));
+            StartCoroutine(DoTubeTransform(targetState, PlanePrefab, RingPrefab));
         }
         else if (targetState == TubeState.Plane)
         {
             m_tubeState = TubeState.RingToPlane;
-            StartCoroutine(DoTubeTransform(targetState, PlanePrefab));
+            StartCoroutine(DoTubeTransform(targetState, RingPrefab, PlanePrefab));
         }
         else//TODO:环形分正反两面
         {
@@ -215,9 +215,27 @@ public class QuadCreator : MonoBehaviour
     /// <param name="targetState"></param>
     /// <param name="targetObj"></param>
     /// <returns></returns>
-    private IEnumerator DoTubeTransform(TubeState targetState, GameObject targetObj)
+    private IEnumerator DoTubeTransform(TubeState targetState, GameObject originObj, GameObject targetObj)
     {
         float m_lerpNum = 0;
+        List<Vector3> originPositions = new List<Vector3>();
+        List<Quaternion> originRotations = new List<Quaternion>();
+        for (int i = 0; i < originObj.transform.childCount; i++)
+        {
+            var originQuad = originObj.transform.GetChild(i);
+            originPositions.Add(originQuad.position);
+            originRotations.Add(originQuad.rotation);
+        }
+
+        List<Vector3> targetPositions = new List<Vector3>();
+        List<Quaternion> targetRotations = new List<Quaternion>();
+        for (int i = 0; i < targetObj.transform.childCount; i++)
+        {
+            var targetQuad = targetObj.transform.GetChild(i);
+            targetPositions.Add(targetQuad.position);
+            targetRotations.Add(targetQuad.rotation);
+        }
+
         while (m_lerpNum < 1f)
         {
             yield return null;
@@ -229,9 +247,9 @@ public class QuadCreator : MonoBehaviour
                 {
                     var targetQuad = m_rows[i].transform.GetChild(j);
                     targetQuad.localPosition =
-                        Vector3.Lerp(targetQuad.localPosition, targetObj.transform.GetChild(j).localPosition, m_lerpNum);
+                        Vector3.Lerp(originPositions[j], targetPositions[j], m_lerpNum);
                     targetQuad.localRotation =
-                        Quaternion.Lerp(targetQuad.localRotation, targetObj.transform.GetChild(j).localRotation, m_lerpNum);
+                        Quaternion.Lerp(originRotations[j], targetRotations[j], m_lerpNum);
                 }
             }
             m_lerpNum += LerpPerAdd;

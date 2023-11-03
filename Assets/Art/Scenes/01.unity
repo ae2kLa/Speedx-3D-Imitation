@@ -240,7 +240,7 @@ MonoBehaviour:
   QuadPrefab: {fileID: 7888580536813736170, guid: ee663e3abbaf97a448a948c3e40da849, type: 3}
   RingPrefab: {fileID: 2917096928192866472, guid: 896305b2b08c29c44a28e4b4646e4bd5, type: 3}
   PlanePrefab: {fileID: 778618245935454157, guid: 45349942ca3fc7e428f09f64039bbc60, type: 3}
-  LerpPerAdd: 0.04
+  LerpPerAdd: 0.01
   SumLength: 30
   MoveSpeed: 5
 --- !u!4 &2061350899
